@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pages.DashboardPage;
 import pages.LoginPage;
 import setup.Setup;
 import utils.Utils;
@@ -15,6 +16,7 @@ import java.io.IOException;
 
 public class LoginTestRunner extends Setup {
     LoginPage loginPage;
+    DashboardPage dashboardPage;
     @Test(priority = 1,description = "User cannot do login successfully")
     public void doLoginWithInvalidCreds(){
         loginPage = new LoginPage(driver);
@@ -26,9 +28,9 @@ public class LoginTestRunner extends Setup {
     @Test(priority = 2,description = "User can do login successfully")
     public void doLogin() throws IOException, ParseException {
         loginPage=new LoginPage(driver);
-        JSONObject userObject= Utils.loadJSONFile("./src/test/resources/AdminCred.json");
-        String username= (String) userObject.get("username");
-        String password= (String) userObject.get("password");
+        JSONObject userObject = Utils.loadJSONFiles("./src/test/resources/Cred.json", 0);
+        String username = userObject.get("username").toString();
+        String password = userObject.get("password").toString();
         driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         loginPage.doLogin(username, password);
 

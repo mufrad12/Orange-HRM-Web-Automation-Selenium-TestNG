@@ -22,11 +22,13 @@ public class Utils {
         JavascriptExecutor js= (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
-    public static JSONObject loadJSONFile(String fileLocation) throws IOException, ParseException {
+    public static JSONObject loadJSONFile(String fileLocation, int index) throws IOException, ParseException {
         JSONParser jsonParser=new JSONParser();
         Object obj = jsonParser.parse(new FileReader(fileLocation));
-        JSONObject jsonObject= (JSONObject) obj;
-        return jsonObject;
+        JSONArray jsonArray = (JSONArray) obj;
+        return (JSONObject) jsonArray.get(index);
+//        JSONObject jsonObject= (JSONObject) obj;
+//        return jsonObject;
     }
 
     public static JSONObject loadJSONFiles(String fileLocation, int index) throws IOException, ParseException {
@@ -46,7 +48,7 @@ public class Utils {
     }
 
     public static void addJsonList(String firstName, String lastName,String empIdStr, String username,String password,String confirmPassword) throws IOException, ParseException {
-        String fileName="./src/test/resources/EmployeeList.json";
+        String fileName="./src/test/resources/Cred.json";
         JSONParser jsonParser = new JSONParser();
         Object obj = jsonParser.parse(new FileReader(fileName));
         JSONObject userObj = new JSONObject();

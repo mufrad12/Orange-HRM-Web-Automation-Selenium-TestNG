@@ -14,31 +14,31 @@ import utils.Utils;
 
 import java.io.IOException;
 
-public class EmpSecondUserTestRunner extends Setup {
+public class NewUserTestRunner extends Setup {
     DashboardPage dashboardPage;
     LoginPage loginPage;
     PDetailPage pDetailPage;
 
-//    @Test(priority = 4, description = "Login With Second User")
-//    public void doLoginWithSecondUsers() throws IOException, ParseException, InterruptedException {
-//        loginPage = new LoginPage(driver);
-//        dashboardPage = new DashboardPage(driver);
-//
-//        JSONObject userObject = Utils.loadJSONFiles("./src/test/resources/EmployeeList.json", 1);
-//        String username = userObject.get("username").toString();
-//        String password = userObject.get("password").toString();
-//        loginPage.doLogin(username, password);
-//        Thread.sleep(1500);
-//
-//        WebElement headerText = driver.findElement(By.tagName("h6"));
-//        String header_actual = headerText.getText();
-//        String header_expected = "Dashboard";
-//        Assert.assertEquals(header_actual, header_expected);
-//        Thread.sleep(1500);
-//
-//    }
+    @Test(priority = 1, description = "Login With Second User")
+    public void doLoginWithSecondUsers() throws IOException, ParseException, InterruptedException {
+        loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
 
-    @Test(priority = 8, description = "Insert 2nd Employee's Information ")
+        JSONObject userObject = Utils.loadJSONFiles("./src/test/resources/Cred.json", 2);
+        String username = userObject.get("username").toString();
+        String password = userObject.get("password").toString();
+        loginPage.doLogin(username, password);
+        Thread.sleep(1500);
+
+        WebElement headerText = driver.findElement(By.tagName("h6"));
+        String header_actual = headerText.getText();
+        String header_expected = "Dashboard";
+        Assert.assertEquals(header_actual, header_expected);
+        Thread.sleep(1500);
+
+    }
+
+    @Test(priority = 1, description = "Insert 2nd Employee's Information ")
     public void updateUserInformation() throws IOException, ParseException, InterruptedException {
         pDetailPage=new PDetailPage(driver);
 
@@ -63,10 +63,10 @@ public class EmpSecondUserTestRunner extends Setup {
         Thread.sleep(1000);
     }
 
-//    @Test(priority = 9,description = "2nd User Logout Successfully")
-//    public void LogOut() {
-//        DashboardPage dashboardPage = new DashboardPage(driver);
-//        dashboardPage.doLogout();
-//        driver.close();
-//    }
+    @Test(priority = 3,description = "2nd User Logout Successfully")
+    public void LogOut() {
+       DashboardPage dashboardPage = new DashboardPage(driver);
+        dashboardPage.doLogout();
+        driver.close();
+   }
 }

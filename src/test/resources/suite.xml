@@ -8,7 +8,7 @@
 
     <test name="2nd Employee Login Page Test">
         <classes>
-            <class name="testrunner.EmpSecondUserTestRunner"/>
+            <class name="testrunner.NewUserTestRunner"/>
         </classes>
     </test>
 

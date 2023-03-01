@@ -27,13 +27,24 @@ public class EmployeeTestRunner extends Setup {
     PIMPage pimPage;
     Utils utils;
 
+    PDetailPage pDetailPage;
+
     @BeforeTest
-    public void doLogin() throws IOException, ParseException {
+    public void doLogin() throws IOException, ParseException, InterruptedException {
         loginPage = new LoginPage(driver);
-        JSONObject userObject = Utils.loadJSONFile("./src/test/resources/AdminCred.json");
-        String username = (String) userObject.get("username");
-        String password = (String) userObject.get("password");
+        dashboardPage = new DashboardPage(driver);
+
+        JSONObject userObject = Utils.loadJSONFiles("./src/test/resources/Cred.json", 0);
+        String username = userObject.get("username").toString();
+        String password = userObject.get("password").toString();
         loginPage.doLogin(username, password);
+        Thread.sleep(1500);
+
+        WebElement headerText = driver.findElement(By.tagName("h6"));
+        String header_actual = headerText.getText();
+        String header_expected = "Dashboard";
+        org.junit.Assert.assertEquals(header_actual, header_expected);
+        Thread.sleep(1500);
     }
 
     @Test(priority = 1, description = "Creating Employee without Username")
@@ -147,7 +158,7 @@ public class EmployeeTestRunner extends Setup {
         PDetailPage pDetailPage = new PDetailPage(driver);
         pimPage.clickOnPIM();
 
-        String fileName = "./src/test/resources/EmployeeList.json";
+        String fileName = "./src/test/resources/Cred.json";
         JSONArray jsonArray = (JSONArray) Utils.readJSONArray(fileName);
         int indexOfFirstEmp = jsonArray.size() - 2;
 
@@ -179,7 +190,7 @@ public class EmployeeTestRunner extends Setup {
             pimPage = new PIMPage(driver);
             int empId = Utils.generateNumber(10000, 99999);
             String randomEmployeeId = String.valueOf(empId);
-            Utils.updateEmp("./src/test/resources/EmployeeList.json", "employeeId", randomEmployeeId,0 );
+            Utils.updateEmp("./src/test/resources/Cred.json", "employeeId", randomEmployeeId,0 );
             Utils.doScroll(driver);
             pimPage.updateEmployee(randomEmployeeId);
             Thread.sleep(1500);
@@ -195,7 +206,7 @@ public class EmployeeTestRunner extends Setup {
         loginPage = new LoginPage(driver);
         dashboardPage = new DashboardPage(driver);
         dashboardPage.menus.get(1).click();
-        JSONObject userObject = Utils.loadJSONFiles("./src/test/resources/EmployeeList.json", 0);
+        JSONObject userObject = Utils.loadJSONFiles("./src/test/resources/Cred.json", 0);
         String employeeId = userObject.get("employeeId").toString();
         pimPage.SearchEmployee(employeeId);
         Thread.sleep(1500);
@@ -214,4 +225,5 @@ public class EmployeeTestRunner extends Setup {
         dashboardPage.doLogout();
         driver.close();
     }
+
 }
