@@ -38,7 +38,7 @@ public class NewUserTestRunner extends Setup {
 
     }
 
-    @Test(priority = 1, description = "Insert 2nd Employee's Information ")
+    @Test(priority = 2, description = "Insert 2nd Employee's Information ")
     public void updateUserInformation() throws IOException, ParseException, InterruptedException {
         pDetailPage=new PDetailPage(driver);
 
