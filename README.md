@@ -1,4 +1,4 @@
-# Orange HRM Web Automation Selenium TestNG
+# Web Automation on OrangeHRM Website with Selenium estNG 
 ### This is a complete project where a Demo site is automated by writing test suites using selenium-webdriver and TestNg as testing framework.
 
 ## Scenerio
